@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ChangeUser from "./changeUser/changeuser";
-import ChangePassword from "./changePassword/changePassword";
-import ChangeAccount from "./changeaccount/changeaccount";
+import ChangePassword from "./changePassword/changepassword.jsx";
+import ChangeAccount from "./changeaccount/changeaccount.jsx";
 
 export default function Settings() {
   const [isTab, setIsTab] = useState("Username");
