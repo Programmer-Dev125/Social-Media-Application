@@ -3,7 +3,6 @@ import Nav from "./components/nav/nav";
 import Home from "./components/home/home";
 import Settings from "./components/settings/settings";
 import Posts from "./components/posts/posts";
-import Chat from "./components/chat/chat";
 
 export default function App() {
   const [link, setLink] = useState(window.location.pathname);

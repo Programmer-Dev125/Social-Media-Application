@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import ChangeUser from "./changeUser/changeuser";
 import ChangePassword from "./changePassword/changePassword";
 import ChangeAccount from "./changeaccount/changeaccount";
-import { settingsIcon } from "../svg/paths";
 
 export default function Settings() {
   const [isTab, setIsTab] = useState("Username");
