@@ -1,15 +1,11 @@
-import { lazy, Suspense } from "react";
 import CreatePost from "./createPost/createPost";
+import Posts from "./posts/Posts.jsx";
 
-const MainPosts = lazy(() => import("./posts/Posts.jsx"));
-
-export default function MainPost() {
+export default function MainPost({ bio }) {
   return (
     <div className="main-content flex-box-col g30 w45">
-      <CreatePost />
-      <Suspense fallback={<h2>Loading...</h2>}>
-        <MainPosts />
-      </Suspense>
+      <CreatePost bio={bio} />
+      <Posts />
     </div>
   );
 }

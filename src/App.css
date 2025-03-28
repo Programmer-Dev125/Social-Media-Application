@@ -25,7 +25,7 @@
 }
 header {
   background-color: #ffffff;
-  padding: 20px 0px 20px 0px;
+  padding: 0px;
   width: 100%;
 }
 
@@ -313,10 +313,6 @@ header .text-center.pointer.active img {
   animation: 0.5s linear forwards fromLeft;
 }
 
-.all-post-row {
-  position: relative;
-  animation: 0.5s linear forwards fromTop;
-}
 .post-row .search-post {
   width: 100%;
   box-sizing: border-box;
@@ -336,7 +332,7 @@ header .text-center.pointer.active img {
 }
 .post-image {
   width: 100%;
-  height: max-content;
+  height: 300px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   filter: brightness(70%);
@@ -406,6 +402,251 @@ header .text-center.pointer.active img {
 .menu-icon-bar {
   display: none;
 }
+.create-content .w10 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-icon-post {
+  background-color: #222222;
+  text-align: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-icon-post svg {
+  width: 22px;
+  height: 22px;
+}
+.user-icon-post svg path {
+  fill: #ffffff;
+  stroke: #ffffff;
+}
+.create-content img {
+  width: 0px;
+  height: 0px;
+}
+.create-content img.active {
+  width: 100%;
+  height: 200px;
+}
+.fix-card {
+  position: fixed;
+  right: 20px;
+  bottom: 30px;
+  width: fit-content;
+  background-color: #00684a;
+  padding: 5px 20px;
+  border-radius: 10px;
+}
+.fix-card.danger {
+  background-color: #d11a2a;
+}
+.fix-card p {
+  font-size: 16px;
+  color: #ffffff;
+}
+.user-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-modal .user-modal-content {
+  background-color: #ffffff;
+  width: 40%;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: -3px 4px 4px 4px rgba(0, 0, 0, 0.1);
+}
+.modal-text {
+  font-size: 16px;
+  color: #000000;
+  z-index: 100;
+}
+.modal-text.active {
+  color: #ffffff;
+}
+.user-modal .user-modal-content .bg {
+  position: absolute;
+  bottom: 0;
+  background-color: #000000;
+  transition: all 0.3s ease-in-out;
+}
+.user-modal .user-modal-content input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+}
+.user-modal .user-modal-content input[type="number"],
+.user-modal .user-modal-content input[id="usersex"] {
+  width: 90%;
+}
+.user-modal .user-modal-content button {
+  width: fit-content;
+  padding: 10px 25px;
+  background: none;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #000000;
+  color: #000000;
+  transition: all 0.3s ease-in-out;
+}
+.user-modal .user-modal-content button:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+.user-modal .user-modal-content .danger-btn {
+  width: fit-content;
+  padding: 10px 30px;
+  border: 1px solid #d11a2a;
+  color: #d11a2a;
+  border-radius: 10px;
+  background: none;
+}
+.user-modal .user-modal-content .danger-btn:hover {
+  background-color: #d11a2a;
+  color: #ffffff;
+}
+.user-modal .user-modal-content .friend-list {
+  padding: 0px;
+  list-style-type: none;
+  height: 400px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.user-modal .user-modal-content .friend-list .divider.pb10:last-child {
+  border-bottom: none;
+  padding-bottom: 0px;
+}
+.user-modal .user-modal-content .friend-list::-webkit-scrollbar {
+  display: none;
+}
+.user-modal .user-modal-content .friend-list img {
+  width: 50px;
+  height: 50px;
+  margin-right: 13px;
+  border-radius: 50%;
+}
+.user-modal .user-modal-content .friend-list .danger-text {
+  font-size: 16px;
+  color: #d11a2a;
+}
+.all-post-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.all-post-row .card {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: relative;
+  box-shadow: -3px 5px 6px 3px #ececec;
+  gap: 20px;
+}
+.all-post-row .card img {
+  width: 100%;
+  height: 300px;
+  filter: brightness(70%);
+}
+.all-post-row .card .menu-post {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+.all-post-row .card .menu-post .menu-post-content {
+  width: fit-content;
+  background-color: #ffffff;
+  padding: 10px 15px;
+  display: none;
+}
+.all-post-row .card .menu-post .menu-post-content.active {
+  display: block;
+}
+.post-row-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #ececec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-row-modal-content {
+  background-color: #ffffff;
+  box-shadow: -3px 4px 4px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  width: 40%;
+}
+.post-row-modal-content img {
+  width: 100%;
+  height: 300px;
+}
+.post-row-modal-content .bg {
+  position: absolute;
+  bottom: 0;
+  background-color: #000000;
+  transition: all 0.3s ease-in-out;
+}
+.post-row-modal-content .edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.post-row-modal-content .edit-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ececec;
+  box-sizing: border-box;
+}
+.post-row-modal-content .edit-form button {
+  width: fit-content;
+  padding: 10px 20px;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.post-row-modal-content .edit-form button:hover {
+  background: #000000;
+  color: #ffffff;
+}
+.post-row-modal .post-row-modal-content .del-post button {
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid #d11a2a;
+  color: #d11a2a;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.post-row-modal .post-row-modal-content .del-post button:hover {
+  background: #d11a2a;
+  color: #ffffff;
+}
 /* Media Responsive Design */
 @media (max-width: 1536px) {
   .home .left-content {
@@ -434,17 +675,11 @@ header .text-center.pointer.active img {
     width: 50%;
   }
   .all-post-row {
-    justify-content: space-evenly !important;
-  }
-  .all-post-row .card {
-    width: 30%;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1024px) {
-  .right-header {
-    width: 60% !important;
-  }
   .home {
     flex-wrap: wrap;
     gap: 20px;
@@ -481,9 +716,23 @@ header .text-center.pointer.active img {
   .post-row .post-search {
     width: 65%;
   }
+  .user-modal .user-modal-content {
+    width: 50%;
+  }
+  .all-post-row {
+    gap: 20px;
+  }
+  .post-row-modal-content {
+    width: 60%;
+  }
 }
 
 @media (max-width: 768px) {
+  .user-modal .user-modal-content {
+    width: 65%;
+    height: 50%;
+    overflow-y: scroll;
+  }
   .isContent {
     margin-top: 40px !important;
     margin-bottom: 160px !important;
@@ -495,16 +744,11 @@ header .text-center.pointer.active img {
     padding: 0px 0px !important;
   }
   header .right-header {
-    width: 65% !important;
+    width: 30%;
   }
   header .right-header nav {
     width: 80%;
   }
-  header .right-header svg {
-    width: 25px;
-    height: 25px;
-  }
-
   header .search-box {
     position: relative;
     width: 10%;
@@ -575,21 +819,28 @@ header .text-center.pointer.active img {
   .post-row .post-search .post-btn-row {
     width: 30%;
   }
-  .all-post-row {
-    justify-content: space-evenly !important;
-  }
-  .all-post-row .card {
-    width: 48% !important;
-  }
   .img-menu-bar {
     width: 33%;
   }
+  .all-post-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .post-row-modal-content {
+    width: 60%;
+    height: 50%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+  .post-row-modal-content::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-@media (max-width: 480px) {
-  header .right-header svg {
-    width: 15px;
-    height: 15px;
+@media (max-width: 600px) {
+  .user-modal .user-modal-content {
+    width: 75%;
+    height: 50%;
+    overflow-y: scroll;
   }
   header .logo-text {
     padding: 8px !important;
@@ -638,7 +889,28 @@ header .text-center.pointer.active img {
   .settings .right-setting .del-user-btn {
     width: 60% !important;
   }
-  .all-post-row .card {
-    width: 100% !important;
+  .create-content .w10 {
+    width: 15%;
+  }
+  .user-icon-post {
+    background-color: #222222;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-icon-post svg {
+    width: 20px;
+    height: 20px;
+  }
+  .all-post-row {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .post-row-modal-content {
+    width: 65%;
   }
 }

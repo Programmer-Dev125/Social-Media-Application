@@ -17,6 +17,18 @@ button:focus,
 textarea:focus {
   outline: none;
 }
+.g2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.isBlock {
+  display: block;
+}
 body.no-scroll {
   overflow: hidden;
   height: 100vh;

@@ -1,7 +1,6 @@
-import { postIcon, settingsIcon } from "../svg/paths";
-import SearchBar from "./search/searchbar";
+import { postIcon, userIcon } from "../svg/paths";
 
-export default function Nav({ isCurr, onLink }) {
+export default function Nav({ isCurr, onLink, bio, onModal }) {
   function handleRoute(e) {
     const route = e.target.dataset.route;
     if (route) {
@@ -21,28 +20,8 @@ export default function Nav({ isCurr, onLink }) {
             SM
           </p>
         </div>
-        <div className="flex-box-row sp-between right-header w50 align-center">
-          <nav className="flex-box-row sp-between w50 align-center">
-            <div
-              data-route="/settings"
-              className={`text-center pointer ${
-                isCurr === "/settings" ? "active" : ""
-              }`}
-            >
-              <svg
-                width="30"
-                height="30"
-                data-route="/settings"
-                viewBox="0 0 40 40"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {settingsIcon}
-              </svg>
-              <p data-route="/settings" className="title mt10 mb0">
-                Settings
-              </p>
-            </div>
+        <div className="flex-box-row sp-between right-header w15 align-center">
+          <nav className="flex-box-row sp-between w100 align-center">
             <div
               data-route="/posts"
               className={`text-center pointer ${
@@ -63,20 +42,27 @@ export default function Nav({ isCurr, onLink }) {
                 Post
               </p>
             </div>
-            <div className="text-center pointer">
+            <div
+              className="text-center pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                onModal(true);
+              }}
+            >
               <div>
-                <img
-                  src="./assets/user-img.png"
-                  alt="User image"
-                  className="user-img"
-                />
+                {bio.img ? (
+                  <img
+                    src="./assets/user-img.png"
+                    alt="User image"
+                    className="user-img"
+                  />
+                ) : (
+                  userIcon
+                )}
               </div>
-              <p className="title mt0 mb0">Name</p>
+              <p className="title mt10 mb0">{bio.name ? bio.name : "Name"}</p>
             </div>
           </nav>
-          <div className="w35 flex-box-row sp-between align-center search-box">
-            <SearchBar />
-          </div>
         </div>
       </div>
     </header>

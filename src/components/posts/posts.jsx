@@ -1,6 +1,4 @@
-import { lazy, Suspense } from "react";
-
-const AllPosts = lazy(() => import("./allposts/allposts.jsx"));
+import AllPosts from "./allposts/allposts";
 
 export default function Posts({ onPost }) {
   function handleClick() {
@@ -27,9 +25,7 @@ export default function Posts({ onPost }) {
         </div>
       </div>
       <div className="mt100 mb50">
-        <Suspense fallback={<h2>Loading...</h2>}>
-          <AllPosts />
-        </Suspense>
+        <AllPosts />
       </div>
     </>
   );
