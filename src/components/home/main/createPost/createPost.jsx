@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
 import { imgIcon, userIcon } from "../../../svg/paths";
+import { handleCreatePosts } from "./handleCreatePost";
 
-export default function CreatePost({ bio }) {
+export default function CreatePost({ bio, update }) {
   const formRef = useRef(null);
-  const [received, setReceived] = useState(false);
+  const [sending, setSending] = useState(false);
   const [response, setResponse] = useState({
+    received: false,
     danger: false,
     message: "",
   });
@@ -14,51 +16,37 @@ export default function CreatePost({ bio }) {
   async function handleImg(e) {
     const isImage = formRef.current.querySelector("img");
     const fl = e.target.files[0];
-    if (!fl.type.startsWith("image/")) {
-      setReceived(true);
-      setResponse({
-        danger: true,
-        message: "Not a valid image",
-      });
-      setTimeout(() => setReceived(false), 2000);
-      return;
-    }
-    console.log(fl);
     isImage.src = URL.createObjectURL(fl);
     isImage.classList.add("active");
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!/^[0-9A-Za-z ]*$/.test(title)) {
-      setReceived(true);
-      setResponse({
-        danger: true,
-        message: "Post title should only contain text and numbers",
-      });
-      setTimeout(() => setReceived(false), 2000);
-      return;
-    }
-    const isFetch = await fetch("http://localhost:3000/");
+    const arrBuff = await fl.arrayBuffer();
+    setImg(arrBuff);
   }
 
   return (
-    <div className="card pt30 pb30 create-content">
+    <div className="card pt30 pb30 create-content relative">
       <div className="w95 mauto flex-box-row sp-between align-start">
         <div className="w10">
           {bio.img ? (
-            <img
-              src="./assets/user-img.png"
-              alt="Create Post Image"
-              className="post-img"
-            />
+            <img src={bio.img} alt="Create Post Image" className="post-img" />
           ) : (
             <div className="user-icon-post">{userIcon}</div>
           )}
         </div>
         <form
-          onSubmit={handleSubmit}
           ref={formRef}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreatePosts(
+              bio.id,
+              title,
+              img,
+              setSending,
+              update,
+              setResponse,
+              setTitle,
+              setImg
+            );
+          }}
           className="flex-box-col create-content-bar w88 g30"
         >
           <div>
@@ -90,9 +78,14 @@ export default function CreatePost({ bio }) {
           </div>
         </form>
       </div>
-      {received && (
+      {sending && (
+        <div className="bg-spinner">
+          <div className="spinner"></div>
+        </div>
+      )}
+      {response.received && (
         <div className={`fix-card ${response.danger ? "danger" : ""}`}>
-          <p>{response.message}</p>
+          <p className="mt0 mb0 title">{response.message}</p>
         </div>
       )}
     </div>

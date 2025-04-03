@@ -1,32 +1,41 @@
-import { useRef } from "react";
+import { useEffect, useState } from "react";
+import { handleAddFriend } from "./handleAddFriend";
 
-export default function RightCard() {
-  const rightList = useRef(null);
+export default function RightCard({ signIn, list, listUpdate }) {
+  const [active, setActive] = useState(false);
+  const [sendId, setSendId] = useState([]);
+  const [spin, setSpin] = useState(false);
+
+  useEffect(() => {
+    if (list.length === 0 && sendId.length !== 0) {
+      setSendId([]);
+    }
+  });
 
   function handleRightList() {
-    if (rightList.current) {
-      rightList.current.classList.toggle("active");
-      if (rightList.current.classList.contains("active")) {
-        document.querySelector(".right-icon").classList.add("active");
-        rightList.current.style.maxHeight = `${rightList.current.scrollHeight}px`;
-      } else {
-        document.querySelector(".right-icon").classList.remove("active");
-        rightList.current.style.maxHeight = `30px`;
-      }
-    }
+    setActive(!active);
   }
 
   return (
-    <div ref={rightList} className="right-content w25">
+    <div
+      style={{
+        maxHeight: active
+          ? `${document.querySelector(".right-content").scrollHeight}px`
+          : "20px",
+      }}
+      className="right-content w25"
+    >
       <div className="w90 mauto">
-        <div className="flex-box-row sp-between list-divider mb10 pb15 align-center">
+        <div
+          className="flex-box-row sp-between list-divider mb10 pb15 align-center pointer"
+          onClick={handleRightList}
+        >
           <p className="title mt0 mb0">Add Friend</p>
           <svg
             width="20"
             height="20"
             viewBox="0 0 25 25"
-            className="right-icon pointer"
-            onClick={handleRightList}
+            className={`right-icon pointer ${active ? "active" : ""}`}
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -36,43 +45,59 @@ export default function RightCard() {
             />
           </svg>
         </div>
-        <div className="show-list flex-box-col g20">
-          <div className="flex-box-row mt20 sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
+        <div className="show-list flex-box-col g20 relative">
+          {signIn ? (
+            list.length === 0 ? (
+              <p className="w100 text-center title mt0 mb0">
+                Either all friend requests are sent or you're the first user
+                congratulations!
+              </p>
+            ) : (
+              list.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className="flex-box-row mt20 sp-between align-center divider pb10"
+                  >
+                    <div>
+                      <p className="text mt0 mb0">{item.name}</p>
+                      <p className="text-sec mt10 mb0">
+                        {item.sex} - {new Date(item.date).toDateString()}
+                      </p>
+                    </div>
+                    <div className="w30 right-card-btn-row">
+                      {sendId.includes(item.id) ? (
+                        <p className="mt0 mb0 sent">Request Sent!</p>
+                      ) : (
+                        <button
+                          className="add-btn"
+                          onClick={() =>
+                            handleAddFriend(
+                              item.id,
+                              sendId,
+                              setSendId,
+                              item.name,
+                              setSpin,
+                              listUpdate
+                            )
+                          }
+                        >
+                          Add Friend
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
+            )
+          ) : (
+            <p className="w100 text-center title mt0 mb0">Login First</p>
+          )}
+          {spin && (
+            <div className="friendlist-message">
+              <div className="spinner"></div>
             </div>
-            <div className="w30 right-card-btn-row">
-              <button className="add-btn">Add Friend</button>
-            </div>
-          </div>
-          <div className="flex-box-row mt20 sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
-            </div>
-            <div className="w30 right-card-btn-row">
-              <button className="add-btn">Add Friend</button>
-            </div>
-          </div>
-          <div className="flex-box-row mt20 sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
-            </div>
-            <div className="w30 right-card-btn-row">
-              <button className="add-btn">Add Friend</button>
-            </div>
-          </div>
-          <div className="flex-box-row mt20 sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
-            </div>
-            <div className="w30 right-card-btn-row">
-              <button className="add-btn">Add Friend</button>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

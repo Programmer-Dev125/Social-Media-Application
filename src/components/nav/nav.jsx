@@ -51,16 +51,14 @@ export default function Nav({ isCurr, onLink, bio, onModal }) {
             >
               <div>
                 {bio.img ? (
-                  <img
-                    src="./assets/user-img.png"
-                    alt="User image"
-                    className="user-img"
-                  />
+                  <img src={bio.img} alt="User image" className="user-img" />
                 ) : (
                   userIcon
                 )}
               </div>
-              <p className="title mt10 mb0">{bio.name ? bio.name : "Name"}</p>
+              <p className="title mt10 mb0">
+                {bio.name ? bio.name : "Signup/Login"}
+              </p>
             </div>
           </nav>
         </div>

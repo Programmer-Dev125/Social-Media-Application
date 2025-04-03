@@ -116,3 +116,21 @@ export const dotIcon = (
     <circle cx="49.5" cy="7.5" r="7.5" fill="white" />
   </svg>
 );
+
+export const closeIcon = (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M2 2L22 22M2 22L22 2"
+      stroke="#D11A2A"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

@@ -1,6 +1,6 @@
 import AllPosts from "./allposts/allposts";
 
-export default function Posts({ onPost }) {
+export default function Posts({ onPost, posts, signIn, bio, update }) {
   function handleClick() {
     window.history.pushState({}, "", "/");
     onPost("/");
@@ -10,14 +10,14 @@ export default function Posts({ onPost }) {
       <div className="post-row flex-box-row sp-between align-center">
         <p className="page-title mt0 mb0">Posts</p>
         <div className="flex-box-row w40 post-search sp-between align-center">
-          <div className="w70 post-search-row">
+          <div className="w55 post-search-row">
             <input
               type="text"
               className="search-post"
               placeholder="Search Your Posts"
             />
           </div>
-          <div className="w25 post-btn-row">
+          <div className="post-btn-row">
             <button onClick={handleClick} className="create-post-btn">
               Create New Posts
             </button>
@@ -25,7 +25,7 @@ export default function Posts({ onPost }) {
         </div>
       </div>
       <div className="mt100 mb50">
-        <AllPosts />
+        <AllPosts signIn={signIn} posts={posts} bio={bio} update={update} />
       </div>
     </>
   );

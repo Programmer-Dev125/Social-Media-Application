@@ -2,8 +2,18 @@ import { useRef, useEffect, useState } from "react";
 import Account from "./account/account";
 import Delete from "./delete/delete";
 import FriendList from "./friendlist/friendlist";
+import Logout from "./logout/logout";
 
-export default function Settings() {
+export default function Settings({
+  bio,
+  response,
+  sending,
+  toLog,
+  update,
+  request,
+  addListUpdate,
+  requestUpdate,
+}) {
   const [tab, setTab] = useState("Account");
   const isRef = useRef(null);
   const [active, setActive] = useState({
@@ -24,6 +34,7 @@ export default function Settings() {
         height: `${activeTab.offsetHeight}px`,
       });
     }
+    return () => setTab("Account");
   }, []);
 
   function handleTab(e) {
@@ -41,7 +52,7 @@ export default function Settings() {
   return (
     <div>
       <div
-        className="flex-box-row sp-between align-center relative divider w100"
+        className="flex-box-row sp-between align-center relative divider w100 mt40"
         ref={isRef}
         onClick={handleTab}
       >
@@ -61,10 +72,17 @@ export default function Settings() {
         </p>
         <p
           className={`modal-text mb0 mt0 pt10 pb10 pl15 pr15 pointer ${
-            active.active === "Friend List" ? "active" : ""
+            active.active === "Friend Request" ? "active" : ""
           }`}
         >
-          Friend List
+          Friend Request
+        </p>
+        <p
+          className={`modal-text mb0 mt0 pt10 pb10 pl15 pr15 pointer ${
+            active.active === "Logout" ? "active" : ""
+          }`}
+        >
+          Logout
         </p>
         <div
           className="bg"
@@ -75,9 +93,35 @@ export default function Settings() {
           }}
         ></div>
       </div>
-      {tab === "Account" && <Account />}
-      {tab === "Delete" && <Delete />}
-      {tab === "Friend List" && <FriendList />}
+      {tab === "Account" && (
+        <Account
+          bio={bio}
+          response={response}
+          sending={sending}
+          update={update}
+        />
+      )}
+      {tab === "Delete" && (
+        <Delete
+          response={response}
+          sending={sending}
+          toLog={toLog}
+          update={update}
+        />
+      )}
+      {tab === "Friend Request" && (
+        <FriendList
+          id={bio.id}
+          response={response}
+          sending={sending}
+          request={request}
+          addListUpdate={addListUpdate}
+          requestUpdate={requestUpdate}
+        />
+      )}
+      {tab === "Logout" && (
+        <Logout response={response} toLog={toLog} update={update} />
+      )}
     </div>
   );
 }

@@ -1,33 +1,32 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-export default function LeftCard() {
-  const cardRef = useRef(null);
-
+export default function LeftCard({ list, signIn }) {
+  const [active, setActive] = useState(false);
   function handleList(e) {
-    if (cardRef.current) {
-      cardRef.current.classList.toggle("active");
-      if (cardRef.current.classList.contains("active")) {
-        document.querySelector(".list-icon").classList.add("active");
-        cardRef.current.style.maxHeight = `${cardRef.current.scrollHeight}px`;
-      } else {
-        document.querySelector(".list-icon").classList.remove("active");
-        cardRef.current.style.maxHeight = "30px";
-      }
-    }
+    setActive(!active);
   }
 
   return (
-    <div ref={cardRef} className="left-content w25">
+    <div
+      style={{
+        maxHeight: active
+          ? `${document.querySelector(".left-content").scrollHeight}px`
+          : "20px",
+      }}
+      className="left-content w25"
+    >
       <div className="w90 mauto flex-box-col">
-        <div className="flex-box-row sp-between mb10 list-divider pb15 align-center">
+        <div
+          className="flex-box-row sp-between mb10 list-divider pb15 align-center pointer"
+          onClick={handleList}
+        >
           <p className="title mt0 mb0">Friend List</p>
           <svg
             width="20"
             height="20"
             viewBox="0 0 25 25"
-            onClick={handleList}
             fill="none"
-            className="pointer list-icon"
+            className={`pointer list-icon ${active ? "active" : ""}`}
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -36,51 +35,33 @@ export default function LeftCard() {
             />
           </svg>
         </div>
-        <div className="show-list flex-box-col g30">
-          <div className="flex-box-row mt20 sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
-            </div>
-            <img
-              src="./assets/user-img.png"
-              alt="user image"
-              className="friend-list-img"
-            />
-          </div>
-          <div className="flex-box-row sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
-            </div>
-            <img
-              src="./assets/user-img.png"
-              alt="user image"
-              className="friend-list-img"
-            />
-          </div>
-          <div className="flex-box-row sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
-            </div>
-            <img
-              src="./assets/user-img.png"
-              alt="user image"
-              className="friend-list-img"
-            />
-          </div>
-          <div className="flex-box-row sp-between align-center divider pb10">
-            <div>
-              <p className="text mt0 mb0">John Doe</p>
-              <p className="text-sec mt10 mb0">Female - 4 Months</p>
-            </div>
-            <img
-              src="./assets/user-img.png"
-              alt="user image"
-              className="friend-list-img"
-            />
-          </div>
+        <div className="show-list flex-box-col g10">
+          {signIn ? (
+            list.length === 0 ? (
+              <p className="mt0 mb0 w100 text-center">No Friend to show</p>
+            ) : (
+              list.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex-box-row mt10 sp-between align-center divider pb15"
+                >
+                  <div>
+                    <p className="text mt0 mb0">{item.name}</p>
+                    <p className="text-sec mt10 mb0">
+                      {item.sex} - {new Date(item.date).toDateString()}
+                    </p>
+                  </div>
+                  <img
+                    src={item.img}
+                    alt="user image"
+                    className="friend-list-img"
+                  />
+                </div>
+              ))
+            )
+          ) : (
+            <p className="mt0 mb0 w100 text-center">Login First</p>
+          )}
         </div>
       </div>
     </div>

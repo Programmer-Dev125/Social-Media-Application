@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import SignUp from "./sign/signup";
-import Login from "./sign/login";
+import SignUp from "./sign/signup/signup";
+import Login from "./sign/login/login";
 
-export default function Log() {
+export default function Log({ response, sending, toLog, update }) {
   const [tab, setTab] = useState("Sign Up");
   const isRef = useRef(null);
   const [active, setActive] = useState({
@@ -23,6 +23,7 @@ export default function Log() {
         height: `${activeTab.offsetHeight}px`,
       });
     }
+    return () => setTab("Sign Up");
   }, []);
 
   function handleTab(e) {
@@ -39,7 +40,7 @@ export default function Log() {
   return (
     <div>
       <div
-        className="flex-box-row sp-between align-center relative divider w100"
+        className="flex-box-row sp-between align-center relative divider w100 mt40"
         ref={isRef}
         onClick={handleTab}
       >
@@ -66,7 +67,21 @@ export default function Log() {
           }}
         ></div>
       </div>
-      {tab === "Sign Up" ? <SignUp /> : <Login />}
+      {tab === "Sign Up" ? (
+        <SignUp
+          response={response}
+          sending={sending}
+          toLog={toLog}
+          update={update}
+        />
+      ) : (
+        <Login
+          response={response}
+          sending={sending}
+          toLog={toLog}
+          update={update}
+        />
+      )}
     </div>
   );
 }
