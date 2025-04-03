@@ -11,14 +11,15 @@ export default function Edit({
   response,
 }) {
   const [name, setName] = useState(title);
-  const [newImage, setNewImage] = useState(img);
+  const [newImage, setNewImage] = useState("");
   const isRef = useRef(null);
 
   async function handleImage(e) {
-    const isSrc = URL.createObjectURL(e.target.files[0]);
+    const fl = e.target.files[0];
+    const isSrc = URL.createObjectURL(fl);
     const isImage = isRef.current.querySelector("img");
     isImage.src = isSrc;
-    const arrBuff = await e.target.files[0].arrayBuffer();
+    const arrBuff = await fl.arrayBuffer();
     setNewImage(arrBuff);
   }
   return (
@@ -58,7 +59,7 @@ export default function Edit({
           <input type="file" id="file" onChange={handleImage} />
         </div>
         <div>
-          <img src={newImage} alt="Image" />
+          <img src={img} alt="Image" />
         </div>
         <div>
           <button>Update</button>

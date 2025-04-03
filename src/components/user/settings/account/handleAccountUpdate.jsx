@@ -24,16 +24,19 @@ export async function handleAccountUpdate(
     return handleState(response, { error: "Incorrect Password" }, true);
   }
   sending(true);
-  const isFetch = await fetch("http://localhost:3000", {
-    method: "PUT",
-    headers: {
-      "content-type": "application/json",
-      "x-request-path": "/update-account",
-      "x-current-user": JSON.stringify({ id: id }),
-    },
-    body: JSON.stringify({ name: name, email: email, password: password }),
-    credentials: "include",
-  });
+  const isFetch = await fetch(
+    "https://social-media-application-eight.vercel.app/api/app",
+    {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        "x-request-path": "/update-account",
+        "x-current-user": JSON.stringify({ id: id }),
+      },
+      body: JSON.stringify({ name: name, email: email, password: password }),
+      credentials: "include",
+    }
+  );
   const isResp = await isFetch.json();
   switch (isFetch.status) {
     case 200:

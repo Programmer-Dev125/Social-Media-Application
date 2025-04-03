@@ -20,7 +20,6 @@ export default function App() {
   const [friendRequests, setFriendRequests] = useState([]);
   const [posts, setPosts] = useState([]);
   const [postUpdate, setPostUpdate] = useState(false);
-  const [userPosts, setUserPosts] = useState([]);
   const [userModal, setUserModal] = useState(false);
   const [bio, setBio] = useState({
     id: "",
@@ -95,7 +94,7 @@ export default function App() {
             posts={posts}
             signIn={bio.name && true}
             bio={bio}
-            update={postUpdate}
+            update={setPostUpdate}
           />
         )}
       </div>

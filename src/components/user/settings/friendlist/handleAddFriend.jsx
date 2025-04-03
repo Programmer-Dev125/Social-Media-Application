@@ -8,16 +8,19 @@ export async function handleAddFriend(
   requestUpdate
 ) {
   sending(true);
-  const isFetch = await fetch("http://localhost:3000", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-request-path": "/accept-friend",
-      "x-current-user": JSON.stringify({ id: id }),
-    },
-    body: JSON.stringify({ name: name }),
-    credentials: "include",
-  });
+  const isFetch = await fetch(
+    "https://social-media-application-eight.vercel.app/api/app",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-request-path": "/accept-friend",
+        "x-current-user": JSON.stringify({ id: id }),
+      },
+      body: JSON.stringify({ name: name }),
+      credentials: "include",
+    }
+  );
   const isResp = await isFetch.json();
   switch (isFetch.status) {
     case 200:

@@ -1,9 +1,13 @@
-import { handleState } from "../../state";
-import { handleDbDelete } from "./handleDbDelete";
+import { handleState } from "../../user/state";
 
-export async function handleDelete(sending, response, toLog, update) {
-  const isId = localStorage.getItem("id");
-  if (!isId) return;
+export async function handlePostDel(
+  id,
+  userId,
+  sending,
+  response,
+  update,
+  onClose
+) {
   sending(true);
   const isFetch = await fetch(
     "https://social-media-application-eight.vercel.app/api/app",
@@ -11,8 +15,8 @@ export async function handleDelete(sending, response, toLog, update) {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
-        "x-request-path": "/del-account",
-        "x-current-user": isId,
+        "x-request-path": "/del-post",
+        "x-current-user": JSON.stringify({ id: userId, postId: id }),
       },
       credentials: "include",
     }
@@ -22,15 +26,13 @@ export async function handleDelete(sending, response, toLog, update) {
     case 200:
       sending(false);
       handleState(response, isResp, false);
-      return handleDbDelete(toLog, update);
+      onClose(false);
+      return update((prev) => (prev = !prev));
     case 400:
-      sending(false);
-      return handleState(response, isResp, true);
-    case 500:
       sending(false);
       return handleState(response, isResp, true);
     default:
       sending(false);
-      return handleState(response, isResp, true);
+      return handleState(response, { error: "Invalid Request" }, true);
   }
 }

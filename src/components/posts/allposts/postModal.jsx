@@ -105,6 +105,7 @@ export default function PostModal({ title, img, onClose, update, id, userId }) {
               update={update}
               sending={setSending}
               response={setResponse}
+              onClose={onClose}
             />
           )}
         </div>

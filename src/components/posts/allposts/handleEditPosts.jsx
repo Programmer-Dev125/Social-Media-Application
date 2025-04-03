@@ -10,21 +10,36 @@ export async function handleEditPosts(
 ) {
   if (!name || !newImage) return;
   sending(true);
-  const isFetch = await fetch("http://localhost:3000", {
-    method: "PUT",
-    headers: {
-      "content-type": "application/json",
-      "x-request-path": "/update-post",
-      "x-current-user": JSON.stringify({ id: userId }),
-    },
-  });
+  const isFetch = await fetch(
+    "https://social-media-application-eight.vercel.app/api/app",
+    {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        "x-request-path": "/update-post",
+        "x-current-user": JSON.stringify({ id: userId, postId: id }),
+      },
+      body: JSON.stringify({
+        name: name,
+        img: Array.from(new Uint8Array(newImage)),
+      }),
+      credentials: "include",
+    }
+  );
   const isResp = await isFetch.json();
   switch (isFetch.status) {
     case 200:
+      sending(false);
+      handleState(response, isResp, false);
+      update((prev) => (prev = !prev));
       break;
     case 400:
+      sending(false);
+      handleState(response, isResp, true);
       break;
     case 500:
+      sending(false);
+      handleState(response, isResp, true);
       break;
     default:
       sending(false);

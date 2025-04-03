@@ -11,15 +11,18 @@ export async function handleLogin(bio, response, sending, toLog, update) {
     return handleState(response, { error: "Invalid Password" }, true);
   }
   sending(true);
-  const isFetch = await fetch("http://localhost:3000", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-request-path": "/login",
-    },
-    body: JSON.stringify({ email: bio.email, password: bio.password }),
-    credentials: "include",
-  });
+  const isFetch = await fetch(
+    "https://social-media-application-eight.vercel.app/api/app",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-request-path": "/login",
+      },
+      body: JSON.stringify({ email: bio.email, password: bio.password }),
+      credentials: "include",
+    }
+  );
 
   const isResp = await isFetch.json();
   switch (isFetch.status) {

@@ -7,18 +7,21 @@ export async function handleAddFriend(
   listUpdate
 ) {
   setSpin((prev) => (prev = !prev));
-  const isFetch = await fetch("http://localhost:3000", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-request-path": "/friend-request",
-      "x-current-user": JSON.stringify({
-        id: parseInt(localStorage.getItem("id")),
-      }),
-    },
-    body: JSON.stringify({ name: name }),
-    credentials: "include",
-  });
+  const isFetch = await fetch(
+    "https://social-media-application-eight.vercel.app/api/app",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-request-path": "/friend-request",
+        "x-current-user": JSON.stringify({
+          id: parseInt(localStorage.getItem("id")),
+        }),
+      },
+      body: JSON.stringify({ name: name }),
+      credentials: "include",
+    }
+  );
 
   const isResp = await isFetch.json();
   switch (isFetch.status) {

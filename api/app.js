@@ -1,4 +1,3 @@
-import { createServer } from "node:http";
 import mongoose, { Schema } from "mongoose";
 import { handleSignUp } from "./sign/signup.js";
 import { handleLogin } from "./sign/login.js";
@@ -13,6 +12,8 @@ import { handleGetFriendRequests } from "./friend/handleGetFriendRequests.js";
 import { handleFriendAccept } from "./friend/handleFriendAccept.js";
 import { handleGetPosts } from "./posts/handleGetPosts.js";
 import { handleCreatePosts } from "./posts/handleCreatePosts.js";
+import { handleEditPosts } from "./posts/handleEditPosts.js";
+import { handleDeletePosts } from "./posts/handleDeletePosts.js";
 
 export async function handleDb() {
   if (mongoose.connection.readyState === 0) {
@@ -29,11 +30,14 @@ const schemaOptions = {
   img: { type: Buffer, required: true },
   date: { type: Date, required: true },
   posts: [
-    new Schema({
-      id: { type: Number, required: true, unique: true },
-      postImage: { type: Buffer, required: true },
-      postTitle: { type: String, required: true },
-    }),
+    new Schema(
+      {
+        id: { type: Number, required: true, unique: true },
+        postImage: { type: Buffer, required: true },
+        postTitle: { type: String, required: true },
+      },
+      { autoIndex: false, autoCreate: false }
+    ),
   ],
   friends: { type: Array },
   requests: { type: Array },
@@ -45,9 +49,12 @@ const model = mongoose.model(
   "users"
 );
 
-createServer(async (req, res) => {
+export default async function handleServer(req, res) {
   await handleDb();
-  res.setHeader("access-control-allow-origin", "http://localhost:5173");
+  res.setHeader(
+    "access-control-allow-origin",
+    "https://social-media-application-eight.vercel.app"
+  );
   res.setHeader(
     "access-control-allow-headers",
     "content-type, x-request-path, x-current-user"
@@ -123,12 +130,16 @@ createServer(async (req, res) => {
           handleDelete(model, req, res);
           break;
         case "/del-post":
+          handleCookie(req, res, tokenVerify);
+          handleDeletePosts(model, req, res);
           break;
       }
       break;
     case "PUT":
       switch (reqPath) {
         case "/update-post":
+          handleCookie(req, res, tokenVerify);
+          handleEditPosts(model, req, res);
           break;
         case "/update-account":
           handleCookie(req, res, tokenVerify);
@@ -141,4 +152,4 @@ createServer(async (req, res) => {
       res.end(JSON.stringify({ error: "Invalid Request or method" }));
       break;
   }
-}).listen(3000, "localhost");
+}
