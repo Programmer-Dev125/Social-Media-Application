@@ -17,7 +17,7 @@ import { handleDeletePosts } from "./posts/handleDeletePosts.js";
 
 export async function handleDb() {
   if (mongoose.connection.readyState === 0) {
-    await mongoose.connect("mongodb://localhost:27017/social");
+    await mongoose.connect(process.env.MONGO_URL);
   }
 }
 const schemaOptions = {
@@ -46,7 +46,7 @@ const schemaOptions = {
 const model = mongoose.model(
   "usermodel",
   new Schema(schemaOptions, { autoIndex: false, autoCreate: false }),
-  "users"
+  process.env.COLLECTION
 );
 
 export default async function handleServer(req, res) {

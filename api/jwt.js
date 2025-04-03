@@ -1,9 +1,6 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 
-dotenv.config();
-
-export const token = jwt.sign(process.env.DATA, process.env.KEY, {
+export const token = jwt.sign(process.env.PAYLOAD, process.env.KEY, {
   algorithm: "HS256",
 });
 
