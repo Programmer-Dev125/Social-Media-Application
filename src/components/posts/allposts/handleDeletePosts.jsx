@@ -10,7 +10,7 @@ export async function handlePostDel(
 ) {
   sending(true);
   const isFetch = await fetch(
-    "https://social-media-application-eight.vercel.app/api/app",
+    "https://social-media-application-eight.vercel.app/api/delete",
     {
       method: "DELETE",
       headers: {

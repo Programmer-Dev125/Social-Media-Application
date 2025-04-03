@@ -1,6 +1,6 @@
 export async function EffectFriendRequests(setRequests, id) {
   const isFetch = await fetch(
-    "https://social-media-application-eight.vercel.app/api/app",
+    "https://social-media-application-eight.vercel.app/api/get",
     {
       headers: {
         "content-type": "application/json",
