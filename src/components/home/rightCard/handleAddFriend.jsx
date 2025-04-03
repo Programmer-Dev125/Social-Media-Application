@@ -8,7 +8,7 @@ export async function handleAddFriend(
 ) {
   setSpin((prev) => (prev = !prev));
   const isFetch = await fetch(
-    "https://social-media-application-eight.vercel.app/api/post",
+    "https://social-media-application-eight.vercel.app/api/app",
     {
       method: "POST",
       headers: {

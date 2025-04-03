@@ -1,4 +1,3 @@
-import { useState } from "react";
 import AllPosts from "./allposts/allposts";
 
 export default function Posts({ onPost, posts, signIn, bio, update }) {

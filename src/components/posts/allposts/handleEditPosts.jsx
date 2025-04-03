@@ -11,7 +11,7 @@ export async function handleEditPosts(
   if (!name || !newImage) return;
   sending(true);
   const isFetch = await fetch(
-    "https://social-media-application-eight.vercel.app/api/put",
+    "https://social-media-application-eight.vercel.app/api/app",
     {
       method: "PUT",
       headers: {

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { dotIcon } from "../../svg/paths";
 import PostModal from "./postModal";
 export default function AllPosts({ signIn, posts, bio, update }) {

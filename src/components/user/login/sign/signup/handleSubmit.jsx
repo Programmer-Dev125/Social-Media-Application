@@ -12,7 +12,7 @@ export async function handleSubmit(bio, img, sending, response, toLog, update) {
     return;
   sending(true);
   const isFetch = await fetch(
-    "https://social-media-application-eight.vercel.app/api/post",
+    "https://social-media-application-eight.vercel.app/api/app",
     {
       method: "POST",
       headers: {

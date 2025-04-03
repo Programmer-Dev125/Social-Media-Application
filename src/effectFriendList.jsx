@@ -1,6 +1,6 @@
 export async function EffectLists(setLists, id) {
   const isFetch = await fetch(
-    "https://social-media-application-eight.vercel.app/api/get",
+    "https://social-media-application-eight.vercel.app/api/app",
     {
       headers: {
         "content-type": "application/json",
